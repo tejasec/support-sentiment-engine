@@ -1,0 +1,43 @@
+project:
+  name: "nlp-engine"
+  version: "0.1.0"
+  random_seed: 42
+
+paths:
+  data_dir: "data"
+  raw_data_dir: "data/raw"
+  processed_data_dir: "data/processed"
+  embeddings_dir: "data/embeddings"
+  artifacts_dir: "artifacts"
+  models_dir: "artifacts/models"
+  metrics_dir: "artifacts/metrics"
+  plots_dir: "artifacts/plots"
+  tokenizers_dir: "artifacts/tokenizers"
+  logs_dir: "artifacts/logs"
+
+dataset:
+  default_filename: "customer_tickets.csv"
+  default_samples: 1000
+  train_split: 0.70
+  val_split: 0.15
+  test_split: 0.15
+  categories:
+    - "Billing & Invoicing"
+    - "Technical Support"
+    - "Account Access"
+    - "Product & Feature Inquiries"
+    - "Shipping & Delivery"
+    - "Cancellation & Returns"
+  urgency_levels:
+    - "Low"
+    - "Medium"
+    - "High"
+    - "Critical"
+  sentiments:
+    - "Positive"
+    - "Neutral"
+    - "Negative"
+
+logging:
+  level: "INFO"
+  format: "[%(asctime)s] [%(levelname)s] [%(name)s]: %(message)s"

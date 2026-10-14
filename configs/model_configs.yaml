@@ -1,0 +1,89 @@
+preprocessing:
+  lowercase: true
+  remove_punctuation: true
+  remove_stopwords: true
+  stopword_language: "english"
+  stemmer: "porter"             # porter | snowball
+  lemmatizer: "wordnet"
+  subword_vocab_size: 1000
+  bpe_merges: 200
+
+representation:
+  bow:
+    max_features: 2000
+    binary: false
+    ngram_range: [1, 1]
+  tfidf:
+    max_features: 2000
+    sublinear_tf: true
+    smooth_idf: true
+    ngram_range: [1, 2]
+  word2vec:
+    vector_size: 100
+    window: 5
+    min_count: 2
+    sg: 1                       # 1 for Skip-gram, 0 for CBOW
+    negative: 5
+    epochs: 20
+    workers: 2
+  contextual:
+    pretrained_model_name: "distilbert-base-uncased"
+    max_length: 128
+    batch_size: 16
+
+probabilistic:
+  ngram:
+    n: 3
+    smoothing: "laplace"        # laplace | add-k | none
+    alpha: 1.0
+  hmm:
+    pos_tags: ["NOUN", "VERB", "ADJ", "ADV", "PRON", "DET", "ADP", "NUM", "CONJ", "PRT", ".", "X"]
+    smoothing_epsilon: 1e-6
+  naive_bayes:
+    alpha: 1.0
+    fit_prior: true
+    classifier_type: "multinomial" # multinomial | bernoulli
+
+neural:
+  device: "cpu"                 # cpu | cuda
+  mlp:
+    input_dim: 2000
+    hidden_dims: [256, 128]
+    num_classes: 6
+    dropout: 0.3
+    learning_rate: 0.001
+    epochs: 15
+    batch_size: 32
+  rnn:
+    embedding_dim: 100
+    hidden_dim: 128
+    num_layers: 2
+    dropout: 0.2
+    cell_type: "lstm"           # rnn | lstm | gru
+    bidirectional: true
+    learning_rate: 0.001
+    epochs: 15
+    batch_size: 32
+  transformer:
+    d_model: 128
+    nhead: 4
+    num_encoder_layers: 2
+    dim_feedforward: 256
+    dropout: 0.1
+    learning_rate: 0.0005
+    epochs: 10
+    batch_size: 32
+
+applications:
+  chatbot:
+    confidence_threshold: 0.65
+    fallback_message: "I am routing your request to a specialized support representative. Could you provide your order number?"
+  sentiment:
+    polarity_threshold_positive: 0.15
+    polarity_threshold_negative: -0.15
+  ner:
+    entities: ["ORDER_ID", "PRODUCT", "DATE", "PERSON", "EMAIL", "PHONE"]
+  serving:
+    host: "0.0.0.0"
+    port: 8000
+    reload: false
