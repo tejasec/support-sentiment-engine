@@ -105,7 +105,7 @@ uv pip install -e ".[dev]"
 
 ### 3. Generate Support Ticket Dataset
 ```bash
-python scripts/generate_dataset.py --samples 1000 --output data/raw/customer_tickets.csv
+uv run python scripts/generate_dataset.py --samples 1000 --output data/raw/customer_tickets.csv
 ```
 
 ### 4. Run Any Milestone Phase
